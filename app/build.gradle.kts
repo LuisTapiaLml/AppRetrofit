@@ -33,9 +33,30 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
+
+    //Para retrofit y Gson
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    //Adicional para el interceptor
+    implementation(libs.logging.interceptor)
+
+    //Glide y Picasso
+    implementation(libs.glide)
+
+
+    //Para las corrutinas con alcance lifecycle (opcional)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    //Imágenes con bordes redondeados
+    implementation(libs.roundedimageview)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

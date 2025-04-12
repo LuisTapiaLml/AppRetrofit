@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.TroopDetailFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="230dp"
+            android:id="@+id/glImageBottom"
+            />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="110dp"
+            android:id="@+id/glContainerTop"
+            />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="15dp"
+            android:id="@+id/glLeft"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="15dp"
+            android:id="@+id/glRight"
+            />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_begin="30dp"
+            android:orientation="vertical"
+            android:id="@+id/glLeftTextMargin"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_end="30dp"
+            android:orientation="vertical"
+            android:id="@+id/glRightTextMargin"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/glContainerTop"
+            app:layout_constraintStart_toEndOf="@+id/glLeft"
+            app:layout_constraintEnd_toStartOf="@+id/glRight"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/layout_bg"
+
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            app:layout_constraintStart_toEndOf="@+id/glLeft"
+            app:layout_constraintEnd_toStartOf="@+id/glRight"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/ivTroopImage"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/glImageBottom"
+            app:layout_constraintStart_toEndOf="@+id/glLeftTextMargin"
+            app:layout_constraintEnd_toStartOf="@id/glRightTextMargin"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:id="@+id/tvName"
+            android:gravity="center"
+            />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintStart_toEndOf="@+id/glLeftTextMargin"
+            app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
+            android:id="@+id/rvLevelsContainer"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/glLeftTextMargin"
+            app:layout_constraintTop_toBottomOf="@+id/rvLevelsContainer"
+            android:text="@string/type_troop_title"
+            android:textColor="@color/bold_color"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvTitleTypeTroop"
+
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTypeTroop"
+            android:text="Tropa de elixir"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tvTitleTypeTroop"
+            app:layout_constraintTop_toBottomOf="@+id/rvLevelsContainer"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
+            android:textColor="@color/text_color"
+            android:layout_marginLeft="25dp"
+            />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
