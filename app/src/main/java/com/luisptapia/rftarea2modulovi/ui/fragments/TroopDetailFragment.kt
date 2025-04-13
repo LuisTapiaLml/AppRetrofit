@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.luisptapia.rftarea2modulovi.R
 import com.luisptapia.rftarea2modulovi.application.RTTarea2ModuloVIApp
 import com.luisptapia.rftarea2modulovi.data.TroopRepository
 import com.luisptapia.rftarea2modulovi.databinding.FragmentTroopDetailBinding
+import com.luisptapia.rftarea2modulovi.ui.adapters.LevelTroopAdapter
+import com.luisptapia.rftarea2modulovi.ui.adapters.TroopsAdapter
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -56,9 +59,22 @@ class TroopDetailFragment : Fragment() {
 
                     tvName.text = troop.name
 
+                    tvTypeTroop.text = troop.tipo_tropa
+                    tvTarget.text = troop.estadisticas.objetivo_preferido
+                    tvDamage.text = troop.estadisticas.tipo_dano
+                    tvSpace.text = troop.estadisticas.espacio_vivienda
+                    tvSpeed.text = troop.estadisticas.velocidad_movimiento
+                    tvAttackSpeed.text = troop.estadisticas.velocidad_ataque
+                    tvRange.text = troop.estadisticas.rango
+
                     Glide.with(requireActivity())
                         .load(troop.image)
                         .into(ivTroopImage)
+
+                    rvLevelsContainer.apply {
+                        layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                        adapter = LevelTroopAdapter(troop.niveles)
+                    }
                 }
 
 

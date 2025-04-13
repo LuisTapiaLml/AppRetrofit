@@ -15,7 +15,7 @@ data class TroopDto(
     @SerializedName("estadisticas")
     var estadisticas : EstadisticasTropa,
     @SerializedName("niveles")
-    var niveles : List<NivelTropa>
+    var niveles : List<NivelTropaDto>
 )
 
 
@@ -39,7 +39,7 @@ data class EstadisticasTropa(
 )
 
 
-data class NivelTropa(
+data class NivelTropaDto(
     @SerializedName("imagen")
     var imagen : String,
 
