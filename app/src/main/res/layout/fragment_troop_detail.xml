@@ -312,6 +312,18 @@
             android:layout_marginLeft="15dp"
             />
 
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateDrawable="@drawable/loading_anim"
+            android:indeterminateDuration="1500"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

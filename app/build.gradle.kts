@@ -40,6 +40,9 @@ android {
 
 dependencies {
 
+    // splash screen
+    implementation (libs.androidx.core.splashscreen)
+
     //Para retrofit y Gson
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

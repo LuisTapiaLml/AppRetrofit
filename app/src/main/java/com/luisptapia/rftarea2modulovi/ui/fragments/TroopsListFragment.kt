@@ -63,9 +63,9 @@ class TroopsListFragment : Fragment() {
                 }
 
             }catch (e:Exception){
-
+                Toast.makeText(requireContext(),getText(R.string.message_list_error),Toast.LENGTH_LONG).show()
             }finally {
-//                binding.pbLoading.visibility = View.GONE
+                binding.pbLoading.visibility = View.GONE
             }
 
         }

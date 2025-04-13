@@ -11,4 +11,6 @@
     <string name="title_attack_speed">Velocidad de Ataque:</string>
     <string name="title_range">Rango:</string>
     <string name="levels_text">%1$s-%2$s</string>
+    <string name="message_detail_error">"Hubo un error al cargar detalle de tropas."</string>
+    <string name="message_list_error">"Hubo un error al cargar lista de tropas."</string>
 </resources>

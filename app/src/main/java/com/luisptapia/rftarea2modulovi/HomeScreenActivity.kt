@@ -1,34 +1,26 @@
 package com.luisptapia.rftarea2modulovi
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.luisptapia.rftarea2modulovi.application.RTTarea2ModuloVIApp
 import com.luisptapia.rftarea2modulovi.data.TroopRepository
+import com.luisptapia.rftarea2modulovi.databinding.ActivityHomeScreenBinding
 import com.luisptapia.rftarea2modulovi.databinding.ActivityMainBinding
 import com.luisptapia.rftarea2modulovi.ui.fragments.TroopsListFragment
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class HomeScreenActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityHomeScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        var splashScreen =  installSplashScreen()
-
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityHomeScreenBinding.inflate(layoutInflater)
 
         enableEdgeToEdge()
-
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -37,14 +29,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        splashScreen.setKeepOnScreenCondition{true}
-
-        val intent = Intent(this, HomeScreenActivity::class.java)
-
-        startActivity(intent)
-
-        finish()
-
-
+        //Primera ejecución de la activity
+        if(savedInstanceState == null){
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    TroopsListFragment()
+                )
+                .commit()
+        }
     }
 }
