@@ -1,5 +1,6 @@
 package com.luisptapia.rftarea2modulovi
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,8 @@ class HomeScreenActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         //Primera ejecución de la activity
         if(savedInstanceState == null){

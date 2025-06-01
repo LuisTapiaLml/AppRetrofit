@@ -10,6 +10,8 @@ data class TroopDto(
     var name: String,
     @SerializedName("image")
     var image: String,
+    @SerializedName("video")
+    var video: String,
     @SerializedName("tipo_tropa")
     var tipo_tropa: String,
     @SerializedName("estadisticas")

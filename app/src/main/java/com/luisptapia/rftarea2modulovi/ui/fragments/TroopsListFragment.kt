@@ -1,5 +1,6 @@
 package com.luisptapia.rftarea2modulovi.ui.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,10 +20,13 @@ import kotlinx.coroutines.launch
 
 class TroopsListFragment : Fragment() {
 
+
     private var _binding: FragmentTroopsListBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var repository: TroopRepository
+
+    private var mediaPlayer: MediaPlayer? =null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +42,9 @@ class TroopsListFragment : Fragment() {
 
         repository = (requireActivity().application as RTTarea2ModuloVIApp).repository
 
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.coc_audio)
+
+        mediaPlayer?.start()
 
         lifecycleScope.launch {
 
@@ -83,8 +90,26 @@ class TroopsListFragment : Fragment() {
             }
     }
 
+    override fun onResume() {
+        super.onResume()
+        mediaPlayer?.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer?.pause()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        mediaPlayer?.stop()
+        mediaPlayer = null
         _binding = null
     }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer?.pause()
+    }
+
 }
