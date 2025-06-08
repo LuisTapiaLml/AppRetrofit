@@ -40,6 +40,9 @@ android {
 
 dependencies {
 
+    //Google Maps (Play services de Google Maps, tanto para vistas XML como para Compose)
+    implementation(libs.play.services.maps)
+
     //Exoplayer
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
