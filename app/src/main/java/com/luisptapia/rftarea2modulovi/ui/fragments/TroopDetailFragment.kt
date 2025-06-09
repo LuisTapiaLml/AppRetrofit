@@ -2,6 +2,7 @@ package com.luisptapia.rftarea2modulovi.ui.fragments
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,18 @@ import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.luisptapia.rftarea2modulovi.R
 import com.luisptapia.rftarea2modulovi.application.RTTarea2ModuloVIApp
 import com.luisptapia.rftarea2modulovi.data.TroopRepository
+import com.luisptapia.rftarea2modulovi.data.remote.model.TroopDto
 import com.luisptapia.rftarea2modulovi.databinding.FragmentTroopDetailBinding
 import com.luisptapia.rftarea2modulovi.ui.adapters.LevelTroopAdapter
 import com.luisptapia.rftarea2modulovi.ui.adapters.TroopsAdapter
@@ -24,13 +34,16 @@ import kotlinx.coroutines.launch
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-class TroopDetailFragment : Fragment() {
+class TroopDetailFragment : Fragment() , OnMapReadyCallback {
 
     private var _binding: FragmentTroopDetailBinding? = null
     private val binding get() = _binding!!
     private var exoPlayer: ExoPlayer? = null
 
     private lateinit var repository: TroopRepository
+    private lateinit var googleMaps: GoogleMap
+
+    private lateinit var troop:TroopDto
 
     private var troopid: String? = null
 
@@ -49,6 +62,8 @@ class TroopDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentTroopDetailBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
 
@@ -58,10 +73,11 @@ class TroopDetailFragment : Fragment() {
         repository = (requireActivity().application as RTTarea2ModuloVIApp).repository
 
 
+
         lifecycleScope.launch {
             try {
 
-                var troop = repository.getTroopDetail(troopid)
+                troop = repository.getTroopDetail(troopid)
 
                 binding.apply {
 
@@ -93,8 +109,17 @@ class TroopDetailFragment : Fragment() {
                     exo.playWhenReady = true
                 }
 
+                val mapFragment = SupportMapFragment.newInstance()
+                childFragmentManager.beginTransaction()
+                    .replace(R.id.map, mapFragment)
+                    .commit()
+
+                mapFragment.getMapAsync(this@TroopDetailFragment)
+
             }catch (e:Exception){
                 Toast.makeText(requireContext(),getText(R.string.message_detail_error),Toast.LENGTH_LONG).show()
+
+                Log.d("APP_LOGS", e.message.toString())
             }finally {
                 binding.pbLoading.visibility = View.GONE
             }
@@ -120,10 +145,68 @@ class TroopDetailFragment : Fragment() {
         exoPlayer?.playWhenReady = true
     }
 
+
+    override fun onStart() {
+        super.onStart()
+    }
+
     override fun onStop() {
         super.onStop()
         exoPlayer?.release()
         exoPlayer = null
     }
 
+
+    override fun onMapReady(map: GoogleMap) {
+
+        googleMaps = map
+
+
+        if (troop != null ) {
+
+
+            val ubicaciones = troop.ubicaciones ?: emptyList()
+
+            for (cord in ubicaciones){
+                val coordinates = LatLng(cord.x, cord.y)
+
+                val icon = BitmapDescriptorFactory.fromResource(R.drawable.flag)
+
+
+                val marker = MarkerOptions()
+                    .position(coordinates)
+                    .title(cord.nombre)
+                    .snippet(cord.descripcion)
+                    .icon(icon)
+
+                googleMaps.addMarker(marker)
+            }
+
+        }
+
+    }
+
+
+
+    suspend fun getBitmapFromUrl(
+        url: String,
+        width: Int = 100,  // Default size
+        height: Int = 100
+    ): BitmapDescriptor? {
+        return try {
+            val bitmap = Glide.with(this)
+                .asBitmap()
+                .load(url)
+                .apply(RequestOptions().override(width, height))
+                .submit()
+                .get() // This runs on IO thread due to coroutine
+
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        } catch (e: Exception) {
+            Log.e("MapUtils", "Error loading image: ${e.message}")
+            null // Return null or fallback icon
+        }
+    }
+
 }
+

@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.luisptapia.rftarea2modulovi.data.TroopRepository
 import com.luisptapia.rftarea2modulovi.databinding.ActivityHomeScreenBinding
 import com.luisptapia.rftarea2modulovi.databinding.ActivityMainBinding
+import com.luisptapia.rftarea2modulovi.ui.fragments.LoginFragment
 import com.luisptapia.rftarea2modulovi.ui.fragments.TroopsListFragment
 
 class HomeScreenActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class HomeScreenActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.fragment_container,
-                    TroopsListFragment()
+                    LoginFragment()
                 )
                 .commit()
         }

@@ -1,5 +1,6 @@
 package com.luisptapia.rftarea2modulovi.ui.fragments
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.luisptapia.rftarea2modulovi.R
 import com.luisptapia.rftarea2modulovi.application.RTTarea2ModuloVIApp
 import com.luisptapia.rftarea2modulovi.data.TroopRepository
@@ -28,6 +31,8 @@ class TroopsListFragment : Fragment() {
 
     private var mediaPlayer: MediaPlayer? =null
 
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +50,7 @@ class TroopsListFragment : Fragment() {
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.coc_audio)
 
         mediaPlayer?.start()
+        firebaseAuth = FirebaseAuth.getInstance()
 
         lifecycleScope.launch {
 
@@ -71,9 +77,24 @@ class TroopsListFragment : Fragment() {
 
             }catch (e:Exception){
                 Toast.makeText(requireContext(),getText(R.string.message_list_error),Toast.LENGTH_LONG).show()
+                Log.d("LOGS_APP",e.message.toString())
             }finally {
                 binding.pbLoading.visibility = View.GONE
             }
+
+        }
+
+        binding.btLogout.setOnClickListener {
+            firebaseAuth.signOut()
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    LoginFragment()
+                )
+                .commit()
+
+            Toast.makeText(requireContext(),"Sesión cerrada exitosamente",Toast.LENGTH_LONG).show()
 
         }
 

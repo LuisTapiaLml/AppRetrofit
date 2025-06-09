@@ -71,6 +71,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="15dp"
             android:id="@+id/ivTroopImage"
+            android:contentDescription="@string/troop_image"
             />
 
         <TextView
@@ -129,8 +130,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Aspectos Por Nivel"
-                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                android:text="@string/aspectos_por_nivel"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/glLeftTextMargin"
                 app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
                 android:id="@+id/vtTitleLevels"
@@ -147,6 +148,7 @@
                 app:layout_constraintStart_toEndOf="@+id/glLeftTextMargin"
                 app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
                 android:id="@+id/rvLevelsContainer"
+                android:contentDescription="@string/troop_aspects"
                 />
 
             <TextView
@@ -174,7 +176,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 />
 
 
@@ -201,7 +203,7 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 />
 
 
@@ -229,7 +231,7 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 />
 
 
@@ -256,7 +258,7 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 />
 
 
@@ -283,7 +285,7 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 />
 
             <TextView
@@ -309,7 +311,7 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 />
 
 
@@ -336,7 +338,7 @@
                 android:layout_marginTop="15dp"
                 android:text=""
                 android:textColor="@color/text_color"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginBottom="15dp"
 
                 />
@@ -344,15 +346,74 @@
             <androidx.media3.ui.PlayerView
                 android:id="@+id/exoView"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
                 app:use_controller="true"
-                app:layout_constraintStart_toStartOf="@+id/glLeftTextMargin"
-                app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvLevelsContainer"
 
                 />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/known_bases"
+                app:layout_constraintTop_toTopOf="@+id/tvTitleRange"
+                app:layout_constraintStart_toEndOf="@+id/glLeftTextMargin"
+                app:layout_constraintEnd_toStartOf="@+id/glRightTextMargin"
+                android:id="@+id/tvTitleMap"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="50dp"
+
+                />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleMap"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Anterior"
+                android:id="@+id/btPreviousLocation"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/bold_color_stats"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp"
+                />
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/btPreviousLocation"
+                app:layout_constraintStart_toEndOf="@+id/btPreviousLocation"
+                android:text="Siguente"
+                android:id="@+id/btNextLocation"
+                android:backgroundTint="@color/bold_color_stats"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp"
+                android:layout_marginStart="10dp"
+
+                />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/btPreviousLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                 />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
