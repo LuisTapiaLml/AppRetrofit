@@ -19,7 +19,7 @@ data class TroopDto(
     @SerializedName("niveles")
     var niveles : List<NivelTropaDto>,
     @SerializedName("bases_conocidas")
-    var ubicaciones : List<UbicacionesTropaDto>?
+    var ubicaciones : List<UbicacionesTropaDto>
 
 )
 
@@ -60,7 +60,7 @@ data class UbicacionesTropaDto(
     @SerializedName("y")
     var y : Double,
 
-    @SerializedName("name")
+    @SerializedName("nombre")
     var nombre : String,
 
     @SerializedName("descripcion")

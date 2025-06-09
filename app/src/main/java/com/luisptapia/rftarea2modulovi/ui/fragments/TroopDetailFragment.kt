@@ -1,6 +1,5 @@
 package com.luisptapia.rftarea2modulovi.ui.fragments
 
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -28,7 +28,6 @@ import com.luisptapia.rftarea2modulovi.data.TroopRepository
 import com.luisptapia.rftarea2modulovi.data.remote.model.TroopDto
 import com.luisptapia.rftarea2modulovi.databinding.FragmentTroopDetailBinding
 import com.luisptapia.rftarea2modulovi.ui.adapters.LevelTroopAdapter
-import com.luisptapia.rftarea2modulovi.ui.adapters.TroopsAdapter
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,6 +45,8 @@ class TroopDetailFragment : Fragment() , OnMapReadyCallback {
     private lateinit var troop:TroopDto
 
     private var troopid: String? = null
+
+    private var currentLocation = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,6 +117,49 @@ class TroopDetailFragment : Fragment() , OnMapReadyCallback {
 
                 mapFragment.getMapAsync(this@TroopDetailFragment)
 
+
+                binding.btNextLocation.setOnClickListener {
+
+                    currentLocation += 1
+
+                    if (currentLocation > troop.ubicaciones.size -1){
+                        currentLocation = 0
+                    }
+
+                    var location = troop.ubicaciones[currentLocation]
+
+                    val coordinates = LatLng(location.x, location.y)
+
+                    googleMaps.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(coordinates, 5f ),
+                        2_000,
+                        null
+                    )
+
+
+                }
+
+                binding.btPreviousLocation.setOnClickListener {
+
+                    currentLocation -=1
+
+                    if (currentLocation < 0){
+                        currentLocation = troop.ubicaciones.size -1
+                    }
+
+                    var location = troop.ubicaciones[currentLocation]
+
+                    val coordinates = LatLng(location.x, location.y)
+
+                    googleMaps.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(coordinates, 5f ),
+                        2_000,
+                        null
+                    )
+
+
+                }
+
             }catch (e:Exception){
                 Toast.makeText(requireContext(),getText(R.string.message_detail_error),Toast.LENGTH_LONG).show()
 
@@ -160,8 +204,7 @@ class TroopDetailFragment : Fragment() , OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
 
         googleMaps = map
-
-
+        
         if (troop != null ) {
 
 
@@ -170,19 +213,25 @@ class TroopDetailFragment : Fragment() , OnMapReadyCallback {
             for (cord in ubicaciones){
                 val coordinates = LatLng(cord.x, cord.y)
 
-                val icon = BitmapDescriptorFactory.fromResource(R.drawable.flag)
-
-
                 val marker = MarkerOptions()
                     .position(coordinates)
                     .title(cord.nombre)
                     .snippet(cord.descripcion)
-                    .icon(icon)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.flag_icon))
 
                 googleMaps.addMarker(marker)
             }
 
         }
+
+        val firstLocation = troop.ubicaciones[0]
+        val coordinates = LatLng(firstLocation.x, firstLocation.y)
+
+        googleMaps.animateCamera(
+            CameraUpdateFactory.newLatLngZoom(coordinates, 15f ),
+            2000,
+            null
+        )
 
     }
 
