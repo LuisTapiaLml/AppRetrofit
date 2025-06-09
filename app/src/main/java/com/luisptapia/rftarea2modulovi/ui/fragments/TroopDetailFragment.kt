@@ -228,7 +228,7 @@ class TroopDetailFragment : Fragment() , OnMapReadyCallback {
         val coordinates = LatLng(firstLocation.x, firstLocation.y)
 
         googleMaps.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(coordinates, 15f ),
+            CameraUpdateFactory.newLatLngZoom(coordinates, 5f ),
             2000,
             null
         )

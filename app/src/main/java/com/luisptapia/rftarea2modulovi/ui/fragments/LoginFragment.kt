@@ -225,14 +225,16 @@ class LoginFragment : Fragment() {
 
                 firebaseAuth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
                     Toast.makeText(requireContext(),
-                        getString(R.string.verification_email_send),Toast.LENGTH_LONG).show()
+                        getString(R.string.verification_email_send),Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(requireContext(), getString(R.string.user_created),Toast.LENGTH_SHORT).show()
+
+                    actionLoginSuccessful()
+
                 }?.addOnFailureListener {
                     Toast.makeText(requireContext(),
-                        getString(R.string.verification_email_error),Toast.LENGTH_LONG).show()
+                        getString(R.string.verification_email_error),Toast.LENGTH_SHORT).show()
                 }
-
-                Toast.makeText(requireContext(), getString(R.string.user_created),Toast.LENGTH_LONG).show()
-                actionLoginSuccessful()
 
             }else{
                 handleErrors(authResult)
